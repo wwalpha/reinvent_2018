@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "lib": [
+      "es5",
+      "es6",
+      "es2015.promise",
+      "dom"
+    ],
+    "allowJs": true,
+    "strictNullChecks": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false
+  },
+  "compileOnSave": true,
+  "files": [
+    "../typings/types.d.ts",
+    "../typings/external.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

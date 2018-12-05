@@ -1,0 +1,33 @@
+{
+  "name": "reinvent_2018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npm run build && npm run package",
+    "prebuild": "rimraf dist && rimraf nodejs/node_modules/library",
+    "build:src": "tsc",
+    "build:lib": "tsc -p tsconfig_lib.json",
+    "build": "npm run build:src && npm run build:lib",
+    "package:src": "powershell compress-archive dist/lambda dist/lambda",
+    "package:lib": "powershell compress-archive nodejs dist/nodejs",
+    "package": "npm run package:src && npm run package:lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwalpha/reinvent_2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wwalpha/reinvent_2018/issues"
+  },
+  "homepage": "https://github.com/wwalpha/reinvent_2018#readme",
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tsutils": "^3.5.2",
+    "typescript": "^3.2.1"
+  }
+}

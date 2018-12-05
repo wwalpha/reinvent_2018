@@ -1,0 +1,9 @@
+{
+  "extends": "./configs/tsconfig_base",
+  "compilerOptions": {
+    "outDir": "nodejs/node_modules/library"
+  },
+  "include": [
+    "./src/library/**/*"
+  ]
+}

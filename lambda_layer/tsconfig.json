@@ -1,0 +1,15 @@
+{
+  "extends": "./configs/tsconfig_base",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "library/*": [
+        "./src/library/*"
+      ]
+    },
+  },
+  "include": [
+    "./src/lambda/**/*"
+  ]
+}
