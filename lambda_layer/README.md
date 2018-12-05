@@ -1,4 +1,4 @@
-# Lambda Layer Example
+# Lambda Layer
 AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
 
 今まで複数の Lambda ファンクションから呼び出すライブラリがあっても各ファンクションごとにパッケージングする必要がありました。
