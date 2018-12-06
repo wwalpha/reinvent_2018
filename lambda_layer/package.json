@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "npm run build && npm run package",
+    "cfn": "aws cloudformation deploy --template-file ./cfn/lambda_layer.yml --stack-name lambda-layer-example --capabilities CAPABILITY_NAMED_IAM",
     "prebuild": "rimraf dist && rimraf nodejs/node_modules/library",
     "build:src": "tsc",
     "build:lib": "tsc -p tsconfig_lib.json",
@@ -24,8 +25,6 @@
   },
   "homepage": "https://github.com/wwalpha/reinvent_2018#readme",
   "devDependencies": {
-    "@types/jszip": "^3.1.4",
-    "jszip": "^3.1.5",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.1",
