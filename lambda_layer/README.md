@@ -1,4 +1,4 @@
-# Lambda Layer Example
+# Lambda Layer
 AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
 
 今まで複数の Lambda ファンクションから呼び出すライブラリがあっても各ファンクションごとにパッケージングする必要がありました。
@@ -8,8 +8,8 @@ AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
 ## Lambda Layer の制限
 * 最大同時５つ Layers 使える
   * A function can use up to 5 layers at a time
-* Function と 全ての Layers、解凍後、250MB超えな
-  * The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.いこと
+* Function と 全ての Layers、解凍後、250MB超えないこと
+  * The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
 
 ## Exampleの流れ
 * Layer 用共通ライブラリの作成 (src/library/utils.ts)
