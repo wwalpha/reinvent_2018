@@ -10,8 +10,8 @@
     "build:src": "tsc",
     "build:lib": "tsc -p tsconfig_lib.json",
     "build": "npm run build:src && npm run build:lib",
-    "package:src": "powershell compress-archive dist/lambda dist/lambda",
-    "package:lib": "powershell compress-archive nodejs dist/nodejs",
+    "package:src": "zip -r dist/lambda.zip dist/lambda/*",
+    "package:lib": "zip -r dist/nodejs.zip nodejs",
     "package": "npm run package:src && npm run package:lib"
   },
   "repository": {
