@@ -10,7 +10,7 @@
     "build:src": "tsc",
     "build:lib": "tsc -p tsconfig_lib.json",
     "build": "npm run build:src && npm run build:lib",
-    "package:src": "zip -r dist/lambda.zip dist/lambda/*",
+    "package:src": "cd dist/lambda && zip -r ../lambda.zip *",
     "package:lib": "zip -r dist/nodejs.zip nodejs",
     "package": "npm run package:src && npm run package:lib"
   },
