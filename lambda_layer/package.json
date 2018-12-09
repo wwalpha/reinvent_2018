@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "init": "cd nodejs && npm install",
+    "initial": "cd nodejs && npm install",
     "deploy": "npm run build && npm run package",
     "cfn": "aws cloudformation deploy --template-file ./cfn/lambda_layer.yml --stack-name lambda-layer-example --capabilities CAPABILITY_NAMED_IAM",
     "prebuild": "rimraf dist && rimraf nodejs/node_modules/library",
