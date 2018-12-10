@@ -13,6 +13,7 @@ AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
 
 ## 事前準備
 * Node.js
+* aws cli
 * TypeScript (npm -g install typescript)
 
 ## Exampleの流れ
