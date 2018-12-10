@@ -6,7 +6,7 @@ AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
 今回発表された AWS Lambda Layers を利用することで共通モジュール / 共通処理を Layer 化して複数の Lambda ファンクションから利用することができるようです。
 
 ## Lambda Layer の制限
-* 最大同時５つ Layers 使える
+* Functionごと、最大同時５つ Layers 使える
   * A function can use up to 5 layers at a time
 * Function と 全ての Layers、解凍後、250MB超えないこと
   * The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
