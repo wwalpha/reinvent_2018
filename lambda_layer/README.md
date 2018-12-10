@@ -92,6 +92,8 @@ npm run release
 * function.zip (Function Source)
 * nodejs.zip (Layer Source)
 
+<br />
+
 ## 検証環境の構築
 検証環境の構築は、`CloudFormation`のテンプレートを用意しました。
 
@@ -170,5 +172,7 @@ Resources:
 ```sh
 aws cloudformation deploy --template-file ./cfn/lambda_layer.yml --stack-name lambda-layer-example --capabilities CAPABILITY_NAMED_IAM
 ```
+
+<br />
 
 ## コンソールから Lambda Layer の確認
