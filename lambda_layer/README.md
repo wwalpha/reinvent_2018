@@ -11,16 +11,23 @@
 * Function と 全ての Layers、解凍後、250MB超えないこと
   * The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
 
+<br />
+
 ## 事前準備
 ### ライブラリ
 * Node.js
 * aws cli
-* TypeScript (npm -g install typescript)
+
+### インストール
+* npm install
+* npm install typescript -g
 
 ### サンプル
 * 共通処理のライブラリ
 * 外部のライブラリ
 * テスト用コード
+
+<br />
 
 ## サンプルの作成
 ### 共通処理のライブラリ
@@ -57,19 +64,36 @@ export const handler = (event: any, context: any, callback: any) => {
 };
 ```
 
-### リリースモジュール作成
-`package.json`のscriptで管理しているタスクを実行する
+### Lambda Layer用モジュールを作成
+`package.json`のscriptsで管理しているタスクを実行する
 
-```
+```sh
 npm run release
 ```
+```js
+...
+  "scripts": {
+    "initial": "cd nodejs && npm install",
+    "release": "npm run build && npm run package",
+    "prebuild": "rimraf dist && rimraf nodejs/node_modules/library",
+    "build:src": "tsc",
+    "build:lib": "tsc -p tsconfig_lib.json",
+    "build": "npm run build:src && npm run build:lib",
+    "package:src": "cd dist/lambda && zip -r ../lambda.zip *",
+    "package:lib": "zip -r dist/nodejs.zip nodejs",
+    "package": "npm run package:src && npm run package:lib"
+  },
+...
+```
 
-### 成果物の構成
-* dist/function.zip (Function Source)
-* dist/nodejs.zip (Layer Source)
+### 成果物の確認
+`dist`フォルダに下記`zip`ファイルが作られました
 
-## Lambdaの実行確認
-テスト環境の構築は、`CloudFormation`のテンプレートを用意しました。簡単に再現できます。
+* function.zip (Function Source)
+* nodejs.zip (Layer Source)
+
+## 検証環境の構築
+検証環境の構築は、`CloudFormation`のテンプレートを用意しました。
 
 ### テンプレート
 ```
