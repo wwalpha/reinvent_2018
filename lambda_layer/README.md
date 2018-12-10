@@ -5,6 +5,8 @@
 
 今回発表された AWS Lambda Layers を利用することで共通モジュール / 共通処理を Layer 化して複数の Lambda ファンクションから利用することができるようです。
 
+<br />
+
 ## Lambda Layer の制限
 * Functionごと、最大同時５つ Layers 使える
   * A function can use up to 5 layers at a time
@@ -95,7 +97,9 @@ npm run release
 <br />
 
 ## 検証環境の構築
-検証環境の構築は、`CloudFormation`のテンプレートを用意しました。
+`CloudFormation`のテンプレートを用意しました。
+
+検証用のモジュールはS3にアップロードしましたので、誰でも簡単に再現できます。
 
 ### テンプレート
 ```
