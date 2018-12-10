@@ -66,8 +66,82 @@ npm run release
 * dist/nodejs.zip (Layer Source)
 
 ## Lambdaの実行確認
-テスト環境は`CloudFormation`で構成しています。
+テスト環境の構築は、`CloudFormation`のテンプレートを用意しました。簡単に再現できます。
 
-下記は設定一覧
+### テンプレート
 ```
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  ExPoliy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: LambdaLayer_LambdaBasicExecution
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Sid: LambdaLogs
+            Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub 'arn:aws:logs:${AWS::Region}:*:*'
+      Roles:
+        - !Ref ExRole
+
+  ExRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: LambdaLayer_LayerRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - lambda.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: '/'
+
+  ExFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: LambdaLayer_Function
+      Handler: app.handler
+      Role: !GetAtt ExRole.Arn
+      Runtime: nodejs8.10
+      Code:
+        S3Bucket: reinvent-2018-examples
+        S3Key: lambda_layer/lambda.zip
+      Layers:
+        - !Ref ExLayer
+
+  ExLayer:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      CompatibleRuntimes:
+        - nodejs8.10
+      LayerName: LambdaLayer_Layer
+      LicenseInfo: MIT
+      Content:
+        S3Bucket: reinvent-2018-examples
+        S3Key: lambda_layer/nodejs.zip
+
+  ExLayerPermission:
+    Type: AWS::Lambda::LayerVersionPermission
+    Properties:
+      Action: lambda:GetLayerVersion
+      LayerVersionArn: !Ref ExLayer
+      Principal: '*'
 ```
+
+### テンプレートの実行
+```sh
+aws cloudformation deploy --template-file ./cfn/lambda_layer.yml --stack-name lambda-layer-example --capabilities CAPABILITY_NAMED_IAM
+```
+
+## コンソールから Lambda Layer の確認
