@@ -1,6 +1,6 @@
-# Lambda Layer
-AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
+# re:Invent 2018 検証実験： Lambda Layer
 
+## 概要
 今まで複数の Lambda ファンクションから呼び出すライブラリがあっても各ファンクションごとにパッケージングする必要がありました。
 
 今回発表された AWS Lambda Layers を利用することで共通モジュール / 共通処理を Layer 化して複数の Lambda ファンクションから利用することができるようです。
@@ -12,42 +12,45 @@ AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
   * The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
 
 ## 事前準備
+### ライブラリ
 * Node.js
 * aws cli
 * TypeScript (npm -g install typescript)
 
-## Exampleの流れ
-* Layer 用共通ライブラリの作成 (src/library/utils.ts)
-* Layer 用外部ライブラリの構成 (nodejs)
-* テストコード作成 (src/lambda/app.ts)
-* リリースモジュール作成
-* 成果物の構成
+### サンプル
+* 共通処理のライブラリ
+* 外部のライブラリ
+* テスト用コード
 
-### Layer 用共通ライブラリの作成
+## サンプルの作成
+### 共通処理のライブラリ
 コンソールにメッセージ出力のファンクションを作成する
 
+* src/lambda/app.ts
 ```js
 export const test = () => console.log('Lambda Layer Test.');
 ```
 
-### Layer 用外部ライブラリの構成
-nodejsフォルダにて、`moment`ライブラリをインストールする
-
-コマンドは`package.json`に設定済みなので、下記コマンドで実行します。
+### 外部のライブラリ
+外部のライブラリを指定フォルダに事前インストールする
 
 ```sh
+cd nodejs && npm install
+or
 npm run initial
 ```
 
-### テストコードの作成
-Layer のライブラリを呼び出し、コンソールに出力する
+### テストコード
+両方ライブラリの関数の実行結果が表示されれば、成功とする
 
 ```js
 import * as utils from 'library/utils';
 import * as moment from 'moment';
 
 export const handler = (event: any, context: any, callback: any) => {
+  // 共通処理のライブラリ
   console.log(utils.test());
+  // 外部のライブラリ
   console.log(moment.now());
 
   callback(null, null);
