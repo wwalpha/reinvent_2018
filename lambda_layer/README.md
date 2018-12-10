@@ -11,6 +11,10 @@ AWS re:Invent 2018にて AWS Lambda Layers が発表されました。
 * Function と 全ての Layers、解凍後、250MB超えないこと
   * The total unzipped size of the function and all layers can't exceed the unzipped deployment package size limit of 250 MB.
 
+## 事前準備
+* Node.js
+* TypeScript (npm -g install typescript)
+
 ## Exampleの流れ
 * Layer 用共通ライブラリの作成 (src/library/utils.ts)
 * Layer 用外部ライブラリの構成 (nodejs)
@@ -26,10 +30,12 @@ export const test = () => console.log('Lambda Layer Test.');
 ```
 
 ### Layer 用外部ライブラリの構成
-nodejsフォルダにて、`moment`をインストールする
+nodejsフォルダにて、`moment`ライブラリをインストールする
+
+コマンドは`package.json`に設定済みなので、下記コマンドで実行します。
 
 ```sh
-npm install moment
+npm run initial
 ```
 
 ### テストコードの作成
@@ -41,7 +47,7 @@ import * as moment from 'moment';
 
 export const handler = (event: any, context: any, callback: any) => {
   console.log(utils.test());
-  console.log(moment);
+  console.log(moment.now());
 
   callback(null, null);
 };
@@ -51,7 +57,7 @@ export const handler = (event: any, context: any, callback: any) => {
 `package.json`のscriptで管理しているタスクを実行する
 
 ```
-npm run deploy
+npm run release
 ```
 
 ### 出力物の構成
